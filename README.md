@@ -41,9 +41,29 @@ Coming soon...
 
 ![Link to the meme, hope it makes you smile](https://pbs.twimg.com/media/CbzEu7eUkAAo0ag?format=jpg&name=small)
 
-# src
+# Installation:
 
-Exam Project for the MLOps course at DTU January 2024.
+1. Clone the repo to your local machine.
+
+2. Create conda environment from requirements.txt:
+
+- Create a virtual environment:
+
+```python
+conda create -n mlops python=3.10
+```
+
+- Activate the environment using the following command:
+
+```python
+conda activate mlops
+```
+
+- Install libraries from the requirements file:
+
+```python
+pip install -r requirements.txt
+```
 
 ## Project structure
 
