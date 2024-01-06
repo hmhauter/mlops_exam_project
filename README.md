@@ -1,3 +1,46 @@
+# Project Goal
+
+The primary objective of this project is to develop Machine Learning operations project for a deep learning-based artificial intelligence model that classifies various types of sports images. The model will be given a sports related image and it will output the name of the sports it’s related to. The purpose is to apply different number of coding practices to organizate, scale, monitor and deploy the machine learning model in a production setting.
+
+## Frameworks and Integration
+
+| Framework    | Purpose / Usage |
+| -------- | ------- |
+| Git and GitHub  | Code Versioning    |
+| TIMM | Pytorch based image models     |
+| DVC    | Data Versioning and Sharing    |
+| Conda    | Environment Management   |
+| Python   | Coding language  |
+| Pytorch   | Deep Learning freamwork  |
+| VSCode and VSCode Debugger    | Code Editor and Debuger  |
+| Cookiecutter   | Project template   |
+| Wandb   | Experiment monitoring (and hyperparameter optimization sweeping)  |
+| Ruff   | Linter, make code PEP8 compliant   |
+| Docker   | Create shareable environment  |
+| Hydra   | Manage Hyperparameters  |
+| Pytorch-lightning   | Reduce boilerplate Code |
+| More will come…  | … |
+
+## Data
+
+The initial dataset for training our model is the [Sports image classification](https://www.kaggle.com/datasets/sidharkal/sports-image-classification). This dataset contains 10.283 labeled images divided in two substes. The training subset contains 8227 files and the test subset contains 2056 files.
+
+## Models
+
+The core model we expect to use is RexNet. This model is selected due to its efficiency and high accuracy in image classification tasks. We will adapt and train this model on our chosen dataset, tuning it to achieve optimal performance in sports image classification.
+
+## Conclusion
+
+Coming soon...
+
+## Progress tracking
+
+[You can find the project progress here](https://github.com/users/hmhauter/projects/1/views/1)
+
+## Meme of the project
+
+![Link to the meme, hope it makes you smile](https://pbs.twimg.com/media/CbzEu7eUkAAo0ag?format=jpg&name=small)
+
 # src
 
 Exam Project for the MLOps course at DTU January 2024.
