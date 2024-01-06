@@ -39,7 +39,7 @@ Coming soon...
 
 ## Meme of the project
 
-[Link to the meme, hope it makes you smile](https://twitter.com/devopsdotcom/status/701651953764298752)
+![Link to the meme, hope it makes you smile](https://pbs.twimg.com/media/CbzEu7eUkAAo0ag?format=jpg&name=small)
 
 # src
 
