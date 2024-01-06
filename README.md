@@ -1,6 +1,6 @@
 # Project Goal
 
-The primary objective of this project is to develop a deep learning-based artificial intelligence model for classifying various types of sports images. The model will be given a sports related image and it will output the name of the sports it’s related to.
+The primary objective of this project is to develop Machine Learning operations project for a deep learning-based artificial intelligence model that classifies various types of sports images. The model will be given a sports related image and it will output the name of the sports it’s related to. The purpose is to use different number of coding practices to organization, scale, monitor and deploy the machine learning model in a production setting that are learned throughout the course.
 
 ## Frameworks and Integration
 
