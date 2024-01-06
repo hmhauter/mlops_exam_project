@@ -37,6 +37,10 @@ Coming soon...
 
 [You can find the project progress here](https://github.com/users/hmhauter/projects/1/views/1)
 
+## Meme of the project
+
+[Link to the meme, hope it makes you smile](https://twitter.com/devopsdotcom/status/701651953764298752)
+
 # src
 
 Exam Project for the MLOps course at DTU January 2024.
