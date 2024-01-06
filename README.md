@@ -1,8 +1,8 @@
-# Overall Goal
+# Project Goal
 
 The primary objective of this project is to develop a deep learning-based artificial intelligence model for classifying various types of sports images. The model will be given a sports related image and it will output the name of the sports it’s related to.
 
-# Frameworks and Integration
+## Frameworks and Integration
 
 | Framework    | Purpose / Usage |
 | -------- | ------- |
@@ -21,15 +21,15 @@ The primary objective of this project is to develop a deep learning-based artifi
 | Pytorch-lightning   | Reduce boilerplate Code |
 | More will come…  | … |
 
-# Data
+## Data
 
 The initial dataset for training our model is the [Sports image classification](https://www.kaggle.com/datasets/sidharkal/sports-image-classification). This dataset contains 10.283 labeled images divided in two substes. The training subset contains 8227 files and the test subset contains 2056 files.
 
-# Models
+## Models
 
 The core model we expect to use is RexNet. This model is selected due to its efficiency and high accuracy in image classification tasks. We will adapt and train this model on our chosen dataset, tuning it to achieve optimal performance in sports image classification.
 
-# Conclusion
+## Conclusion
 
 In summary, this project aims to harness the power of deep learning to accurately classify sports images. By leveraging PyTorch and PyTorch Lightning, along with the RexNet model, we strive to develop a robust and efficient classification system. The project's performance will be evaluated based on the model's accuracy and its ability to generalize across various sports images. We expect to use multiple parameters in order to in-depth evaluate.
 
