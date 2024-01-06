@@ -1,26 +1,37 @@
-#Overall Goal
+# Overall Goal
 
-The primary objective of this project is to develop a deep learning-based artificial intelligence model for classifying various types of sports images.
+The primary objective of this project is to develop a deep learning-based artificial intelligence model for classifying various types of sports images. The model will be given a sports related image and it will output the name of the sports it’s related to.
 
-#Frameworks and Integration
+# Frameworks and Integration
 
-We will utilize two frameworks for this project:
+| Framework    | Purpose / Usage |
+| -------- | ------- |
+| Git and GitHub  | Code Versioning    |
+| TIMM | Pytorch based image models     |
+| DVC    | Data Versioning and Sharing    |
+| Conda    | Environment Management   |
+| Python   | Coding language  |
+| Pytorch   | Deep Learning freamwork  |
+| VSCode and VSCode Debugger    | Code Editor and Debuger  |
+| Cookiecutter   | Project template   |
+| Wandb   | Experiment monitoring (and hyperparameter optimization sweeping)  |
+| Ruff   | Linter, make code PEP8 compliant   |
+| Docker   | Create shareable environment  |
+| Hydra   | Manage Hyperparameters  |
+| Pytorch-lightning   | Reduce boilerplate Code |
+| More will come…  | … |
 
-PyTorch: A well-known framework for building deep learning models.
-PyTorch Lightning: An extension of PyTorch that provides a higher level of abstraction, making the training process more organized and less error-prone.
-The integration of these frameworks will facilitate model development, training, and validation processes.
+# Data
 
-#Data
+The initial dataset for training our model is the [Sports image classification](https://www.kaggle.com/datasets/sidharkal/sports-image-classification). This dataset contains 10.283 labeled images divided in two substes. The training subset contains 8227 files and the test subset contains 2056 files.
 
-The initial dataset for training our model is the Fruits 100 Dataset. This dataset comprises a diverse collection of sports images, which is crucial for the effectiveness of the classification model.
-
-#Models
+# Models
 
 The core model we expect to use is RexNet. This model is selected due to its efficiency and high accuracy in image classification tasks. We will adapt and train this model on our chosen dataset, tuning it to achieve optimal performance in sports image classification.
 
-#Conclusion
+# Conclusion
 
-In summary, this project aims to harness the power of deep learning to accurately classify sports images. By leveraging PyTorch and PyTorch Lightning, along with the RexNet model, we strive to develop a robust and efficient classification system. The project's success will be evaluated based on the model's accuracy and its ability to generalize across various sports images.
+In summary, this project aims to harness the power of deep learning to accurately classify sports images. By leveraging PyTorch and PyTorch Lightning, along with the RexNet model, we strive to develop a robust and efficient classification system. The project's performance will be evaluated based on the model's accuracy and its ability to generalize across various sports images. We expect to use multiple parameters in order to in-depth evaluate.
 
 # src
 
