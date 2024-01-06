@@ -31,7 +31,7 @@ The core model we expect to use is RexNet. This model is selected due to its eff
 
 ## Conclusion
 
-In summary, this project aims to harness the power of deep learning to accurately classify sports images. By leveraging PyTorch and PyTorch Lightning, along with the RexNet model, we strive to develop a robust and efficient classification system. The project's performance will be evaluated based on the model's accuracy and its ability to generalize across various sports images. We expect to use multiple parameters in order to in-depth evaluate.
+Coming soon...
 
 ## Progress tracking
 
