@@ -1,26 +1,88 @@
+# main.py
+import hydra
 import torch
+import torchmetrics
+import timm
+import pytorch_lightning as pl
+from torchmetrics import F1Score, Accuracy
+from torch.nn import CrossEntropyLoss
+import wandb
+from omegaconf import DictConfig
+from hydra.utils import instantiate
+import logging
 
-class MyNeuralNet(torch.nn.Module):
-    """ Basic neural network class. 
-    
-    Args:
-        in_features: number of input features
-        out_features: number of output features
-    
-    """
-    def __init__(self, in_features: int, out_features: int) -> None:
-        self.l1 = torch.nn.Linear(in_features, 500)
-        self.l2 = torch.nn.Linear(500, out_features)
-        self.r = torch.nn.ReLU()
-    
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward pass of the model.
-        
-        Args:
-            x: input tensor expected to be of shape [N,in_features]
+class CustomModel(pl.LightningModule):
+    def __init__(self, cfg: DictConfig):
+        super(CustomModel, self).__init__()
 
-        Returns:
-            Output tensor with shape [N,out_features]
+        # log hyperparameters with lightning
+        self.save_hyperparameters()
 
-        """
-        return self.l2(self.r(self.l1(x)))
+        self.f1 = F1Score(task="multiclass", num_classes=cfg.model.num_classes)
+        self.accuracy = Accuracy(task="multiclass", num_classes=cfg.model.num_classes)
+        self.model = timm.create_model(cfg.model.model_name, pretrained=True, num_classes=cfg.model.num_classes)
+        self.ce_loss = CrossEntropyLoss()
+
+    def configure_optimizers(self):
+        return torch.optim.Adam(self.parameters(), lr=self.hparams.model.lr)
+
+    def forward(self, inp):
+        return self.model(inp)
+
+    def training_step(self, batch, batch_idx):
+        ims, gts = batch
+        preds = self.model(ims)
+        loss = self.ce_loss(preds, gts)
+
+        # Train metrics
+        pred_clss = torch.argmax(preds, dim=1)
+        acc = self.accuracy(pred_clss, gts)
+        f1 = self.f1(pred_clss, gts)
+
+        # log with pytorch lightning
+        self.log("train_loss", loss, on_step=False, on_epoch=True, logger=True, sync_dist=True)
+        self.log("train_acc", acc, on_step=False, on_epoch=True, logger=True, sync_dist=True)
+        self.log("train_f1", f1, on_step=False, on_epoch=True, logger=True, sync_dist=True)
+
+        return loss
+
+    def validation_step(self, batch, batch_idx):
+        ims, gts = batch
+        preds = self.model(ims)
+        loss = self.ce_loss(preds, gts)
+
+        # Train metrics
+        pred_clss = torch.argmax(preds, dim=1)
+        acc = self.accuracy(pred_clss, gts)
+        f1 = self.f1(pred_clss, gts)
+
+        # log with pytorch lightning
+        self.log("val_loss", loss, on_step=False, on_epoch=True, logger=True, sync_dist=True)
+        self.log("val_acc", acc, on_step=False, on_epoch=True, logger=True, sync_dist=True)
+        self.log("val_f1", f1, on_step=False, on_epoch=True, logger=True, sync_dist=True)
+
+        return loss
+
+@hydra.main(config_path="../../config", config_name="main")
+def main(cfg: DictConfig) -> None:
+    print(f"Loaded Config:\n{cfg}")
+
+    # use WandB for logging
+    wandb.init()
+
+    # use Hydra to instantiate the Lightning model to inject hyperparameter configuration
+    lightning_model = CustomModel(cfg=cfg)
+
+    trainer = pl.Trainer(
+        max_epochs=cfg.trainer.max_epochs,
+        logger=pl.loggers.WandbLogger(),
+    )
+
+    # Training
+    trainer.fit(lightning_model)
+
+    # Access the hyperparameters from the instantiated model
+    print("Hyperparameters:", lightning_model.hparams)
+
+if __name__ == "__main__":
+    main()
