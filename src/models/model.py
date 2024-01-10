@@ -4,7 +4,7 @@ import timm
 import pytorch_lightning as pl
 from torchmetrics import F1Score, Accuracy
 from torch.nn import CrossEntropyLoss
-import wandb
+from pytorch_lightning.loggers import WandbLogger
 import logging
 import os
 
@@ -64,3 +64,10 @@ class CustomModel(pl.LightningModule):
         self.log("val_f1", f1, on_step=False, on_epoch=True, logger=True, sync_dist=True)
 
         return loss
+
+    def configure_logging(self):
+        wandb_logger = WandbLogger(
+            log_model=True,  # Log the best model
+            save_dir="wandb_logs",  # Save logs in a specific directory
+        )
+        return [wandb_logger]
