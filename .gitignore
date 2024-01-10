@@ -2,6 +2,10 @@ docs/site/
 
 # test cache
 manual_test/
+lightning_logs/
+outputs/
+wandb/
+.dvc/tmp/
 
 # other local dev info
 .vscode/
