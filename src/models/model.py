@@ -1,30 +1,32 @@
-# main.py
-import hydra
+# model.py
 import torch
-import torchmetrics
 import timm
 import pytorch_lightning as pl
+from pytorch_lightning.cli import LightningCLI
 from torchmetrics import F1Score, Accuracy
 from torch.nn import CrossEntropyLoss
 import wandb
 from omegaconf import DictConfig
-from hydra.utils import instantiate
 import logging
 
-class CustomModel(pl.LightningModule):
-    def __init__(self, cfg: DictConfig):
-        super(CustomModel, self).__init__()
 
+class CustomModel(pl.LightningModule):
+    def __init__(self, num_classes, model_name):
+        super(CustomModel, self).__init__()
+        logging.info(f"Loaded Config:\n")
+        # Extract values from the config
+        num_classes = num_classes
+        model_name = model_name
         # log hyperparameters with lightning
         self.save_hyperparameters()
 
-        self.f1 = F1Score(task="multiclass", num_classes=cfg.model.num_classes)
-        self.accuracy = Accuracy(task="multiclass", num_classes=cfg.model.num_classes)
-        self.model = timm.create_model(cfg.model.model_name, pretrained=True, num_classes=cfg.model.num_classes)
+        self.f1 = F1Score(task="multiclass", num_classes=num_classes)
+        self.accuracy = Accuracy(task="multiclass", num_classes=num_classes)
+        self.model = timm.create_model(model_name, pretrained=True, num_classes=num_classes)
         self.ce_loss = CrossEntropyLoss()
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=self.hparams.model.lr)
+        return torch.optim.Adam(self.parameters(), lr=0.001)
 
     def forward(self, inp):
         return self.model(inp)
@@ -63,26 +65,30 @@ class CustomModel(pl.LightningModule):
 
         return loss
 
-@hydra.main(config_path="../../config", config_name="main")
-def main(cfg: DictConfig) -> None:
-    print(f"Loaded Config:\n{cfg}")
 
-    # use WandB for logging
-    wandb.init()
+# def main(cfg: DictConfig) -> None:
+#     print(f"Loaded Config:\n{cfg}")
 
-    # use Hydra to instantiate the Lightning model to inject hyperparameter configuration
-    lightning_model = CustomModel(cfg=cfg)
+#     # use WandB for logging
+#     wandb.init()
 
-    trainer = pl.Trainer(
-        max_epochs=cfg.trainer.max_epochs,
-        logger=pl.loggers.WandbLogger(),
-    )
+#     # use Hydra to instantiate the Lightning model to inject hyperparameter configuration
+#     lightning_model = CustomModel(cfg=cfg)
 
-    # Training
-    trainer.fit(lightning_model)
+#     trainer = pl.Trainer(
+#         max_epochs=cfg.trainer.max_epochs,
+#         logger=pl.loggers.WandbLogger(),
+#     )
 
-    # Access the hyperparameters from the instantiated model
-    print("Hyperparameters:", lightning_model.hparams)
+#     # Training
+#     trainer.fit(lightning_model)
+
+#     # Access the hyperparameters from the instantiated model
+#     print("Hyperparameters:", lightning_model.hparams)
 
 if __name__ == "__main__":
-    main()
+    # wandb.init()
+    # Use LightningCLI to automatically handle command-line arguments and configuration
+    # python src/models/model.py fit --model.num_classes 10 --model.model_name resnet18
+    logging.Logger("lightning", level=logging.INFO)
+    cli = LightningCLI(CustomModel)
