@@ -3,8 +3,16 @@ import pytorch_lightning as pl
 from torch.utils.data import DataLoader, random_split
 from src.data.DataSet import SportDataset
 
+
 class SportDataModule(pl.LightningDataModule):
-    def __init__(self, data_dir: str = './data', batch_size: int = 32, num_workers: int = 4, transformations=None, train_val_test_split=[0.7, 0.15, 0.15]):
+    def __init__(
+        self,
+        data_dir: str = "./data",
+        batch_size: int = 32,
+        num_workers: int = 4,
+        transformations=None,
+        train_val_test_split=[0.7, 0.15, 0.15],
+    ):
         super().__init__()
         self.data_dir = data_dir
         self.batch_size = batch_size
@@ -27,7 +35,9 @@ class SportDataModule(pl.LightningDataModule):
         test_len = full_len - train_len - val_len
 
         # Split the dataset
-        self.train_dataset, self.val_dataset, self.test_dataset = random_split(full_dataset, [train_len, val_len, test_len])
+        self.train_dataset, self.val_dataset, self.test_dataset = random_split(
+            full_dataset, [train_len, val_len, test_len]
+        )
 
     def train_dataloader(self):
         return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=self.num_workers)
