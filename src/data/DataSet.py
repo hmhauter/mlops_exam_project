@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 from PIL import Image
 from typing import Union
+import logging
 import torchvision.transforms as transforms
 
 class SportDataset(Dataset):
@@ -10,10 +11,13 @@ class SportDataset(Dataset):
         super().__init__()
 
         if not isinstance(csv_file, (str, Path)):
+            logging.error("csv_file must be of type str or Path")
             raise TypeError("csv_file must be of type str or Path")
         if not isinstance(data_dir, (str, Path)):
+            logging.error("data_dir must be of type str or Path")
             raise TypeError("data_dir must be of type str or Path")
         if transformations is not None and not isinstance(transformations, transforms.Compose):
+            logging.error("transformations must be of type transforms.Compose or None")
             raise TypeError("transformations must be of type transforms.Compose or None")
 
         self.data_dir = Path(data_dir)
@@ -26,6 +30,7 @@ class SportDataset(Dataset):
         ])
 
         if not csv_path.exists():
+            logging.error(f"CSV file '{csv_file}' does not exist")
             raise FileNotFoundError(f"CSV file '{csv_file}' does not exist")
 
         self.df = pd.read_csv(csv_path)
@@ -37,6 +42,7 @@ class SportDataset(Dataset):
 
     def __getitem__(self, idx):
         if idx >= len(self):
+            logging.error("Index out of range")
             raise IndexError("Index out of range")
 
         row = self.df.iloc[idx]
@@ -47,6 +53,7 @@ class SportDataset(Dataset):
         if self.labels is not None:
             label = self.class_to_idx.get(row["label"])
             if label is None:
+                logging.error(f"Label '{row['label']}' not found in class_to_idx mapping")
                 raise ValueError(f"Label '{row['label']}' not found in class_to_idx mapping")
             return image, label
         else:
