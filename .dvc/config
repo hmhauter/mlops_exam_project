@@ -1,0 +1,7 @@
+[core]
+    remote = remote_storage
+['remote "storage"']
+    url = gdrive://1kAG6fyrGUgYG_Fed4bx9CJUdcDIHUQ44
+['remote "remote_storage"']
+    url = gs://mlops_exam_bucket
+    version_aware = true

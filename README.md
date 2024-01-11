@@ -8,22 +8,37 @@ The primary objective of this project is to develop Machine Learning operations 
 | -------- | ------- |
 | Git and GitHub  | Code Versioning    |
 | TIMM | Pytorch based image models     |
-| DVC    | Data Versioning and Sharing    |
+| DVC for Google Cloud    | Data Versioning and Sharing    |
 | Conda    | Environment Management   |
-| Python   | Coding language  |
-| Pytorch   | Deep Learning freamwork  |
+| Python 3.10   | Coding language  |
+| Pytorch 2.1.2   | Deep Learning freamwork  |
 | VSCode and VSCode Debugger    | Code Editor and Debuger  |
 | Cookiecutter   | Project template   |
 | Wandb   | Experiment monitoring (and hyperparameter optimization sweeping)  |
 | Ruff   | Linter, make code PEP8 compliant   |
 | Docker   | Create shareable environment  |
-| Hydra   | Manage Hyperparameters  |
 | Pytorch-lightning   | Reduce boilerplate Code |
 | More will come…  | … |
 
 ## Data
 
 The initial dataset for training our model is the [Sports image classification](https://www.kaggle.com/datasets/sidharkal/sports-image-classification). This dataset contains 10.283 labeled images divided in two substes. The training subset contains 8227 files and the test subset contains 2056 files.
+
+In order to have a version control of the data and make the repo lighter, dvc is going to be used. To get the data, just make sure that dvc is installed in your machine. If is not, you can do it like this: 
+
+```python
+pip install dvc
+```
+And in this case you would also need to run the following command as we are using Google Drive to store the data.
+
+```python
+pip install "dvc[gdrive]"
+```
+Alternatively, installing the packages in requirements-dev.txt will also get dvc working, among other things. This is done with the following instruction:
+
+```python
+pip install -r "requirements-dev.txt"
+```
 
 ## Models
 

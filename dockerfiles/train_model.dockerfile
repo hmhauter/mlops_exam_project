@@ -5,13 +5,16 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt requirements.txt
-COPY pyproject.toml pyproject.toml
-COPY src/ src/
-COPY data/ data/
-
 WORKDIR /
-RUN pip install -r requirements.txt --no-cache-dir
-RUN pip install . --no-deps --no-cache-dir
+RUN apt update
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git
+RUN pip install --upgrade pip
+RUN git clone https://github.com/hmhauter/mlops_exam_project.git
+RUN pip install -r mlops_exam_project/requirements.txt --no-cache-dir
+RUN pip install mlops_exam_project/ --no-deps --no-cache-dir
+RUN pip install dvc
+RUN pip install "dvc[gs]"
 
-ENTRYPOINT ["python", "-u", "src/train_model.py"]
+ENTRYPOINT ["python", "-u", "mlops_exam_project/src/train_model.py"]
