@@ -15,6 +15,6 @@ RUN git clone https://github.com/hmhauter/mlops_exam_project.git
 RUN pip install -r mlops_exam_project/requirements.txt --no-cache-dir
 RUN pip install mlops_exam_project/ --no-deps --no-cache-dir
 RUN pip install dvc
-RUN pip install "dvc[gdrive]"
+RUN pip install "dvc[gs]"
 
 ENTRYPOINT ["python", "-u", "mlops_exam_project/src/train_model.py"]
