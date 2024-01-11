@@ -8,16 +8,15 @@ The primary objective of this project is to develop Machine Learning operations 
 | -------- | ------- |
 | Git and GitHub  | Code Versioning    |
 | TIMM | Pytorch based image models     |
-| DVC    | Data Versioning and Sharing    |
+| DVC for Google Cloud    | Data Versioning and Sharing    |
 | Conda    | Environment Management   |
-| Python   | Coding language  |
-| Pytorch   | Deep Learning freamwork  |
+| Python 3.10   | Coding language  |
+| Pytorch 2.1.2   | Deep Learning freamwork  |
 | VSCode and VSCode Debugger    | Code Editor and Debuger  |
 | Cookiecutter   | Project template   |
 | Wandb   | Experiment monitoring (and hyperparameter optimization sweeping)  |
 | Ruff   | Linter, make code PEP8 compliant   |
 | Docker   | Create shareable environment  |
-| Hydra   | Manage Hyperparameters  |
 | Pytorch-lightning   | Reduce boilerplate Code |
 | More will come…  | … |
 
