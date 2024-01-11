@@ -80,6 +80,13 @@ conda activate mlops
 pip install -r requirements.txt
 ```
 
+## Run Model 
+
+- Train the model with: 
+```python
+python src/main.py -c config/main.yaml fit
+```
+
 ## Project structure
 
 The directory structure of the project looks like this:
