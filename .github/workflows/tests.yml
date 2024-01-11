@@ -40,14 +40,15 @@ jobs:
         pip install dvc[gs]
         pip install gcloud
 
-    - name: Loging GoogleCloud
-      run: |
-        gcloud auth activate-service-account --key-file=${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        credentials_json: '${{ secrets.GDRIVE_CREDENTIALS_DATA }}'
 
-    - name: Get data
-      run: dvc pull
-      env:
-        GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
+    - name: Pull data
+      run: |
+          dvc pull
 
     - name: Run tests with coverage
       run: |
