@@ -1,5 +1,5 @@
 from typing import Optional
-import pytorch_lightning as pl
+import lightning as pl
 from torch.utils.data import DataLoader, random_split
 from src.data.DataSet import SportDataset
 

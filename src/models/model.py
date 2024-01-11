@@ -1,12 +1,11 @@
 # model.py
 import torch
 import timm
-import pytorch_lightning as pl
+import lightning as pl
 from torchmetrics import F1Score, Accuracy
 from torch.nn import CrossEntropyLoss
-from pytorch_lightning.loggers import WandbLogger
+from lightning.pytorch.loggers import WandbLogger
 import logging
-import os
 
 
 class CustomModel(pl.LightningModule):

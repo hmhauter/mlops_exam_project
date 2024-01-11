@@ -1,4 +1,4 @@
-from pytorch_lightning.cli import LightningCLI
+from lightning.pytorch.cli import LightningCLI
 import wandb
 import logging
 
