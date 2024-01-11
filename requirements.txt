@@ -1,5 +1,8 @@
-omegaconf==2.3.0
-pytorch_lightning==2.1.3
-timm==0.9.12
-torch==2.1.2
-torchmetrics==1.2.1
+lightning
+pandas
+Pillow
+pytest
+timm
+torch
+torchmetrics
+torchvision
