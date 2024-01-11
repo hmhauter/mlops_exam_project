@@ -5,11 +5,11 @@ from io import StringIO
 import sys
 
 @patch("sys.argv", ["main.py", "-c", "config/main.yaml", "fit"])
-def test_cli_main(self):
+def test_cli_main():
     captured_output = StringIO()
     sys.stdout = captured_output
     cli_main()
     sys.stdout = sys.__stdout__
-    self.assertIn("Expected Output", captured_output.getvalue())
+    assert("Expected Output", captured_output.getvalue())
 
 
