@@ -6,3 +6,4 @@ timm
 torch
 torchmetrics
 torchvision
+wandb
