@@ -34,4 +34,4 @@ def test_csv_file_not_found():
 
 def test_image_file_not_found(dataset):
     with pytest.raises(IndexError):
-        dataset[len(dataset)]  # Replace 100 with an index that exceeds the number of images in your dataset
+        dataset[len(dataset)] 
