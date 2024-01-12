@@ -17,4 +17,4 @@ RUN pip install mlops_exam_project/ --no-deps --no-cache-dir
 RUN pip install dvc
 RUN pip install "dvc[gs]"
 
-ENTRYPOINT ["python", "-u", "mlops_exam_project/src/train_model.py"]
+ENTRYPOINT ["python", "-u", "mlops_exam_project/src/main.py","-c","config/main.yaml","fit"]
