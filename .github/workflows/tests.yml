@@ -33,9 +33,25 @@ jobs:
       with:
         credentials_json: '${{ secrets.GDRIVE_CREDENTIALS_DATA }}'
 
-    - name: Pull data
+    - name: Cache DVC data
+      uses: actions/cache@v2
+      with:
+        path: |
+          .dvc
+        key: dvc-${{ runner.os }}-${{ hashFiles('**/data.dvc') }}
+
+    - name: Restore Cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          .dvc
+        key: dvc-${{ runner.os }}-${{ hashFiles('**/data.dvc') }}
+
+    - name: Pull DVC data if cache is not restored
       run: |
+        if [ -z "$GITHUB_RESTORE_CACHE" ]; then
           dvc pull
+        fi
 
     - name: Run tests with coverage
       run: |
