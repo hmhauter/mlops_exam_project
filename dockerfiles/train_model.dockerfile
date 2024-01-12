@@ -16,5 +16,8 @@ RUN pip install -r mlops_exam_project/requirements.txt --no-cache-dir
 RUN pip install mlops_exam_project/ --no-deps --no-cache-dir
 RUN pip install dvc
 RUN pip install "dvc[gs]"
+RUN pip install jsonargparse[signatures]>=4.26.1
+WORKDIR /mlops_exam_project/
+RUN dvc pull
 
-ENTRYPOINT ["python", "-u", "mlops_exam_project/src/main.py","-c","config/main.yaml","fit"]
+ENTRYPOINT ["python", "-u", "src/main.py","-c","config/main.yaml","fit"]
