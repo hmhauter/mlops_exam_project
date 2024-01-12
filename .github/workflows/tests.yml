@@ -42,11 +42,15 @@ jobs:
         pip install pytest pytest-cov
         pytest tests/
 
-    - name: Upload coverage results
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage-report
-        path: |
-          ${{ github.workspace }}/htmlcov
+    - name: Generate Report
+      run: |
+          pip install pytest-cov
+          pipytest --cov=src tests/
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+            CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
     - name: Set status check
       run: echo "::set-output name=status::success"
