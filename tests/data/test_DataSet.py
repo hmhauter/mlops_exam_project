@@ -42,4 +42,4 @@ def test_csv_file_not_found():
 
 def test_image_file_not_found(dataset):
     with pytest.raises(IndexError):
-        dataset[len(dataset)] 
+        dataset[len(dataset)]
