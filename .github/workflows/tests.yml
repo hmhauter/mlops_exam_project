@@ -44,8 +44,7 @@ jobs:
 
     - name: Generate Report
       run: |
-          pip install pytest-cov
-          pipytest --cov=src tests/
+        pytest --cov=src tests/
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
