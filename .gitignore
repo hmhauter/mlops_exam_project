@@ -5,6 +5,9 @@ data/
 
 # test cache
 manual_test/
+outputs/
+wandb/
+lightning_logs/
 
 # other local dev info
 .vscode/

@@ -6,6 +6,7 @@ from typing import Union
 import logging
 import torchvision.transforms as transforms
 
+
 class SportDataset(Dataset):
     def __init__(self, csv_file: str | Path, data_dir: str | Path, transformations=None):
         super().__init__()
@@ -22,12 +23,14 @@ class SportDataset(Dataset):
 
         self.data_dir = Path(data_dir)
         csv_path = self.data_dir / Path(csv_file)
-        
-        self.transformations = transformations or transforms.Compose([
-            transforms.Resize((256, 256)),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
+
+        self.transformations = transformations or transforms.Compose(
+            [
+                transforms.Resize((256, 256)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ]
+        )
 
         if not csv_path.exists():
             logging.error(f"CSV file '{csv_file}' does not exist")
