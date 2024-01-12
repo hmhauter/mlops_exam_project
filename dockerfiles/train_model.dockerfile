@@ -1,6 +1,9 @@
 # Base image
 FROM python:3.10-slim
 
+
+ARG KEY
+ENV WANDB_API_KEY=$KEY
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
@@ -19,4 +22,6 @@ RUN pip install "dvc[gs]"
 RUN pip install jsonargparse[signatures]>=4.26.1
 WORKDIR /mlops_exam_project/
 
+
 ENTRYPOINT ["python", "-u", "src/main.py","-c","config/main.yaml","-c","config/vertex.yaml","fit"]
+
