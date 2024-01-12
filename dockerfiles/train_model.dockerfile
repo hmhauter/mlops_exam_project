@@ -18,6 +18,5 @@ RUN pip install dvc
 RUN pip install "dvc[gs]"
 RUN pip install jsonargparse[signatures]>=4.26.1
 WORKDIR /mlops_exam_project/
-RUN dvc pull
 
 ENTRYPOINT ["python", "-u", "src/main.py","-c","config/main.yaml","fit"]
