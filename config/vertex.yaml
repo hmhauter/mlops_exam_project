@@ -1,0 +1,8 @@
+fit:
+  trainer:
+    callbacks:
+      - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+        init_args:
+          dirpath: /gcs/models_mlops/
+  data:
+    data_dir: /gcs/dataset-bucket-2/data

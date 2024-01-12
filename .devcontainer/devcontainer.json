@@ -1,0 +1,5 @@
+{
+    "name": "mlops_dev_env",
+    "dockerFile": "developer.dockerfile",
+    "postCreateCommand": "pip install -r requirements.txt"
+}

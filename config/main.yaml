@@ -7,7 +7,10 @@ fit:
     num_nodes: 1
     precision: null
     logger: WandbLogger
-    callbacks: null
+    callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        dirpath: ./models/
     fast_dev_run: false
     max_epochs: 1
     min_epochs: null
