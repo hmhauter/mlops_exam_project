@@ -87,6 +87,9 @@ pip install -r requirements.txt
 python src/main.py -c config/main.yaml fit
 ```
 
+## Test Coverage
+[Visit the test coverage here](https://app.codecov.io/gh/hmhauter/mlops_exam_project)
+
 ## Project structure
 
 The directory structure of the project looks like this:
