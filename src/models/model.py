@@ -5,7 +5,6 @@ import lightning as pl
 from torchmetrics import F1Score, Accuracy
 from torch.nn import CrossEntropyLoss
 from lightning.pytorch.loggers import WandbLogger
-import logging
 
 
 class CustomModel(pl.LightningModule):
