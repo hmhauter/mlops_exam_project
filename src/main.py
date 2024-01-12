@@ -1,5 +1,4 @@
 from lightning.pytorch.cli import LightningCLI
-import wandb
 import logging
 
 from src.data.DataModule import SportDataModule
