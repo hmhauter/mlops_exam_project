@@ -1,0 +1,56 @@
+# pytorch_lightning==2.1.3
+fit:
+  trainer:
+    accelerator: auto
+    strategy: auto
+    devices: auto
+    num_nodes: 1
+    precision: null
+    logger: WandbLogger
+    callbacks: null
+    fast_dev_run: false
+    max_epochs: 1
+    min_epochs: null
+    max_steps: -1
+    min_steps: null
+    max_time: null
+    limit_train_batches: null
+    limit_val_batches: null
+    limit_test_batches: null
+    limit_predict_batches: null
+    overfit_batches: 0.0
+    val_check_interval: null
+    check_val_every_n_epoch: 1
+    num_sanity_val_steps: null
+    log_every_n_steps: null
+    enable_checkpointing: null
+    enable_progress_bar: null
+    enable_model_summary: null
+    accumulate_grad_batches: 1
+    gradient_clip_val: null
+    gradient_clip_algorithm: null
+    deterministic: null
+    benchmark: null
+    inference_mode: true
+    use_distributed_sampler: true
+    profiler: null
+    detect_anomaly: false
+    barebones: false
+    plugins: null
+    sync_batchnorm: false
+    reload_dataloaders_every_n_epochs: 0
+    default_root_dir: null
+  model:
+    num_classes: 10
+    model_name: resnet18
+    lr: 0.001
+  data:
+    data_dir: ./data
+    batch_size: 32
+    num_workers: 4
+    transformations: null
+    train_val_test_split:
+    - 0.7
+    - 0.15
+    - 0.15
+  ckpt_path: null

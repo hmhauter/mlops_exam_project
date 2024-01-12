@@ -1,1 +1,9 @@
-torch==2.1.2
+lightning
+pandas
+Pillow
+pytest
+timm
+torch
+torchmetrics
+torchvision
+wandb

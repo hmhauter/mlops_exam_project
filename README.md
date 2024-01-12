@@ -24,7 +24,7 @@ The primary objective of this project is to develop Machine Learning operations 
 
 The initial dataset for training our model is the [Sports image classification](https://www.kaggle.com/datasets/sidharkal/sports-image-classification). This dataset contains 10.283 labeled images divided in two substes. The training subset contains 8227 files and the test subset contains 2056 files.
 
-In order to have a version control of the data and make the repo lighter, dvc is going to be used. To get the data, just make sure that dvc is installed in your machine. If is not, you can do it like this: 
+In order to have a version control of the data and make the repo lighter, dvc is going to be used. To get the data, just make sure that dvc is installed in your machine. If is not, you can do it like this:
 
 ```python
 pip install dvc
@@ -78,6 +78,13 @@ conda activate mlops
 
 ```python
 pip install -r requirements.txt
+```
+
+## Run Model
+
+- Train the model with:
+```python
+python src/main.py -c config/main.yaml fit
 ```
 
 ## Project structure
