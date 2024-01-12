@@ -1,0 +1,11 @@
+# config-vertex-ai.yaml
+workerPoolSpecs:
+    machineSpec:
+        machineType: n1-highmem-2
+    replicaCount: 1
+    containerSpec:
+        imageUri: gcr.io/mlops-exam-project/train_docker:latest
+
+
+# try:
+# gcloud ai custom-jobs create --region=us-central1 --project=mlops-exam-project --worker-pool-spec=replica-count=1,machine-type='n1-highmem-2',container-image-uri='gcr.io/mlops-exam-project/train_docker:latest' --display-name=test
