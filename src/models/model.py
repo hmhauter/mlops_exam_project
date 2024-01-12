@@ -6,6 +6,8 @@ from torchmetrics import F1Score, Accuracy
 from torch.nn import CrossEntropyLoss
 from lightning.pytorch.loggers import WandbLogger
 from lightning.pytorch import seed_everything
+import logging
+import torchvision.transforms as transforms
 
 
 class CustomModel(pl.LightningModule):
@@ -25,7 +27,21 @@ class CustomModel(pl.LightningModule):
         self.accuracy = Accuracy(task="multiclass", num_classes=self.num_classes)
         self.model = timm.create_model(self.model_name, pretrained=True, num_classes=self.num_classes)
         self.ce_loss = CrossEntropyLoss()
-
+        
+    def preprocess_input(self, image):
+        """
+        Apply the same transformations to the input as used in training.
+        """
+        self.transformations = transforms.Compose(
+            [
+                transforms.Resize((256, 256)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ]
+        )
+        if self.transformations is not None:
+            return self.transformations(image)
+    
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), self.lr)
 
@@ -65,6 +81,16 @@ class CustomModel(pl.LightningModule):
         self.log("val_f1", f1, on_step=False, on_epoch=True, logger=True, sync_dist=True)
 
         return loss
+    
+    def predict(self, image):
+
+        self.eval()  # Set the model to evaluation mode
+        with torch.no_grad():
+            processed_image = self.preprocess_input(image)
+            # If using a GPU, you might need to move the processed image to GPU here
+            processed_image = processed_image.to(self.device)
+            prediction = self.forward(processed_image.unsqueeze(0))  # Unsqueeze to add batch dimension
+            return prediction
 
     def configure_logging(self):
         wandb_logger = WandbLogger(
