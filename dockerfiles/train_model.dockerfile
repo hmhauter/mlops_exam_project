@@ -19,4 +19,4 @@ RUN pip install "dvc[gs]"
 RUN pip install jsonargparse[signatures]>=4.26.1
 WORKDIR /mlops_exam_project/
 
-ENTRYPOINT ["python", "-u", "src/main.py","-c","config/main.yaml","fit"]
+ENTRYPOINT ["python", "-u", "src/main.py","-c","config/main.yaml","-c","config/vertex.yaml","fit"]
