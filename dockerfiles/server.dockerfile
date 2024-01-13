@@ -9,10 +9,8 @@ RUN pip install --upgrade pip
 
 COPY src/requirements.txt requirements.txt
 COPY src/prediction_server.py prediction_server.py
-COPY src/model.ckpt model.ckpt
 COPY pyproject.toml pyproject.toml
 COPY src/ src/
-COPY data/ data/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
