@@ -9,7 +9,7 @@ from src.models.model import CustomModel
 app = FastAPI()
 
 # Load the model and the dataset when the server starts
-model = CustomModel.load_from_checkpoint("lightning_logs/zdm54gb6/checkpoints/epoch=0-step=180.ckpt")
+model = CustomModel.load_from_checkpoint("model.ckpt")
 model.freeze()
 model.to('cuda' if torch.cuda.is_available() else 'cpu')  # Move model to GPU if available
 dataset = SportDataset(csv_file="train.csv", data_dir="data/")

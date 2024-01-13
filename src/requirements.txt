@@ -1,0 +1,11 @@
+lightning
+pandas
+Pillow
+pytest
+timm
+torch
+torchmetrics
+torchvision
+wandb
+fastapi
+uvicorn

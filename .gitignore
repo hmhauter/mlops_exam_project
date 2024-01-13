@@ -9,6 +9,9 @@ outputs/
 wandb/
 lightning_logs/
 
+# models
+*ckpt
+
 # other local dev info
 .vscode/
 
