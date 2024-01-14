@@ -1,4 +1,5 @@
 import io
+import os
 from fastapi import FastAPI, UploadFile
 from PIL import Image
 import torch
@@ -8,11 +9,16 @@ from src.models.model import CustomModel
 app = FastAPI()
 
 # Load the model and the dataset when the server starts
-BUCKET_NAME = "models_mlops"
+BUCKET_NAME = "test-model-server"
 MODEL_FILE_NAME = "model.ckpt"
 
-# client = storage.Client.from_service_account_json(<path-to-service-account-json>)
-client = storage.Client()
+# service_account_json = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+# client = storage.Client.from_service_account_info(service_account_json)
+
+# credentials = service_account.Credentials.from_service_account_info(service_account_json)
+# client = storage.Client(project='project_id', credentials=credentials)
+
+client = storage.Client("mlops-exam-project")
 # Download the model from GCS using the bucket and blob
 print("DOWNLOAD MODEL")
 bucket = client.get_bucket(BUCKET_NAME)
