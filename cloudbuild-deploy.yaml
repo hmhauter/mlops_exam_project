@@ -21,8 +21,7 @@ steps:
       - "run"
       - "deploy"
       - "server"
-      - "--image"
-      - "gcr.io/mlops-exam-project/server:latest"
+      - 'service-monitoring.yaml'
       - "--region"
       - "europe-west1"
       - "--platform"
