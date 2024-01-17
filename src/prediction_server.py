@@ -5,6 +5,7 @@ import torch
 from google.cloud import storage
 from src.models.model import CustomModel
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
 
@@ -50,3 +51,6 @@ async def predict(photo: UploadFile):
 
     # Return the prediction
     return {"prediction": predicted_label}
+
+
+Instrumentator().instrument(app).expose(app)
