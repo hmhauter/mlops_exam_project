@@ -4,14 +4,12 @@ command:
   - python
   - u
   - main.py
-  -fit
-  -trainer
+  - fit
+  - trainer
   - --model.lr
   - $learning_rate
   - --data.batch_size
   - $batch_size
-  - --optimizer
-  - $optimizer
   - --max_epochs
   - $max_epochs
 metric:
