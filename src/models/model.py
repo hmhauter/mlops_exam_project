@@ -6,7 +6,6 @@ from torchmetrics import F1Score, Accuracy
 from torch.nn import CrossEntropyLoss
 from lightning.pytorch.loggers import WandbLogger
 from lightning.pytorch import seed_everything
-import logging
 import torchvision.transforms as transforms
 
 
@@ -83,7 +82,6 @@ class CustomModel(pl.LightningModule):
         return loss
 
     def predict(self, image):
-
         self.eval()  # Set the model to evaluation mode
         with torch.no_grad():
             processed_image = self.preprocess_input(image)

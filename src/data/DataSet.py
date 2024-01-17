@@ -2,7 +2,6 @@ from torch.utils.data import Dataset
 from pathlib import Path
 import pandas as pd
 from PIL import Image
-from typing import Union
 import logging
 import torchvision.transforms as transforms
 
