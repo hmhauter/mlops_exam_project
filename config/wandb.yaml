@@ -2,6 +2,7 @@ program: main.py
 method: bayes
 command:
   - python
+  - u
   - main.py
   -fit
   -trainer
