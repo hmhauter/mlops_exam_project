@@ -5,6 +5,7 @@ import lightning as pl
 from torchmetrics import F1Score, Accuracy
 from torch.nn import CrossEntropyLoss
 from lightning.pytorch.loggers import WandbLogger
+from lightning.pytorch import seed_everything
 
 
 class CustomModel(pl.LightningModule):
@@ -17,6 +18,8 @@ class CustomModel(pl.LightningModule):
 
         # log hyperparameters with lightning
         self.save_hyperparameters()
+        # make sure model is deterministic and reproducable (deterministig flag in config has to be true)
+        seed_everything(42, workers=True)
 
         self.f1 = F1Score(task="multiclass", num_classes=self.num_classes)
         self.accuracy = Accuracy(task="multiclass", num_classes=self.num_classes)

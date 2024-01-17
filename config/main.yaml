@@ -6,7 +6,40 @@ fit:
     devices: auto
     num_nodes: 1
     precision: null
-    logger: WandbLogger
+    logger:
+      class_path: lightning.pytorch.loggers.WandbLogger
+      init_args:
+        name: null
+        save_dir: .
+        version: null
+        offline: false
+        dir: null
+        id: null
+        anonymous: null
+        project: 'lightning_logs'
+        log_model: true
+        experiment: null
+        prefix: 'mlops'
+        checkpoint_name: null
+        job_type: null
+        config: null
+        entity: null
+        reinit: null
+        tags: null
+        group: null
+        notes: null
+        magic: null
+        config_exclude_keys: null
+        config_include_keys: null
+        mode: null
+        allow_val_change: null
+        resume: null
+        force: null
+        tensorboard: null
+        sync_tensorboard: null
+        monitor_gym: null
+        save_code: null
+        settings: null
     callbacks:
     - class_path: lightning.pytorch.callbacks.ModelCheckpoint
       init_args:
@@ -32,7 +65,7 @@ fit:
     accumulate_grad_batches: 1
     gradient_clip_val: null
     gradient_clip_algorithm: null
-    deterministic: null
+    deterministic: true
     benchmark: null
     inference_mode: true
     use_distributed_sampler: true
