@@ -23,14 +23,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# client = storage.Client("mlops-exam-project")
-# # Download the model from GCS using the bucket and blob
-# bucket = client.get_bucket(BUCKET_NAME)
-# blob = bucket.get_blob(MODEL_FILE_NAME)
-# model_bytes = blob.download_as_bytes()
+client = storage.Client("mlops-exam-project")
+# Download the model from GCS using the bucket and blob
+bucket = client.get_bucket(BUCKET_NAME)
+blob = bucket.get_blob(MODEL_FILE_NAME)
+model_bytes = blob.download_as_bytes()
 
 # Load the model using torch.load
-model = CustomModel.load_from_checkpoint("models/epoch=0-step=180.ckpt")
+model = CustomModel.load_from_checkpoint(io.BytesIO(model_bytes))
 model.freeze()
 model.to("cuda" if torch.cuda.is_available() else "cpu")  # Move model to GPU if available
 
