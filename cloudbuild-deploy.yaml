@@ -19,8 +19,8 @@ steps:
     entrypoint: gcloud
     args:
       - "run"
-      - "deploy"
-      - "server"
+      - "services"
+      - "replace"
       - 'service-monitoring.yaml'
       - "--region"
       - "europe-west1"
