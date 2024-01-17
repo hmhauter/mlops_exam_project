@@ -1,1 +1,13 @@
-# TO DO 
+method: bayes
+metric:
+  goal: minimize
+  name: val_loss
+parameters:
+  learning_rate:
+    values: [0.001, 0.005, 0.01, 0.05, 0.1, 0.2]
+  batch_size:
+    values: [32, 64, 128, 256]
+  optimizer:
+    values: ["adam", "sgd", "rmsprop"]
+  max_epochs:
+    values: [5, 10, 15, 20]
