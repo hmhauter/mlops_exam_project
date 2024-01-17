@@ -27,7 +27,7 @@ class CustomModel(pl.LightningModule):
         self.accuracy = Accuracy(task="multiclass", num_classes=self.num_classes)
         self.model = timm.create_model(self.model_name, pretrained=True, num_classes=self.num_classes)
         self.ce_loss = CrossEntropyLoss()
-        
+
     def preprocess_input(self, image):
         """
         Apply the same transformations to the input as used in training.
@@ -41,7 +41,7 @@ class CustomModel(pl.LightningModule):
         )
         if self.transformations is not None:
             return self.transformations(image)
-    
+
     def configure_optimizers(self):
         return torch.optim.Adam(self.parameters(), self.lr)
 
@@ -81,7 +81,7 @@ class CustomModel(pl.LightningModule):
         self.log("val_f1", f1, on_step=False, on_epoch=True, logger=True, sync_dist=True)
 
         return loss
-    
+
     def predict(self, image):
 
         self.eval()  # Set the model to evaluation mode

@@ -16,4 +16,4 @@ WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install python-multipart
 
-CMD exec uvicorn prediction_server:app --port 80 --host 0.0.0.0 --workers 1
+CMD exec uvicorn prediction_server:app --port $PORT --host 0.0.0.0 --workers 1
