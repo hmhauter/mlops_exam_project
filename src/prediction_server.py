@@ -11,26 +11,23 @@ from transformers import CLIPProcessor, CLIPModel
 from evidently.report import Report
 from evidently.test_suite import TestSuite
 from evidently.tests import (
-    TestValueRange,
-    TestMeanInNSigmas,
     TestNumberOfColumns,
     TestNumberOfRows,
-    TestColumnValueMin,
-    TestColumnValueMax,
-    TestColumnValueMean,
-    TestColumnValueMedian,
-    TestColumnValueStd,
 )
-from evidently.metric_preset import DataDriftPreset, DataQualityPreset
+from evidently.metric_preset import DataDriftPreset, DataQualityPreset, TargetDriftPreset
 import pandas as pd
 from fastapi.responses import HTMLResponse
-
+import logging
 
 app = FastAPI()
+logging.Logger("app", level=logging.INFO)
 
 # Load the model and the dataset when the server starts
-BUCKET_NAME = "test-model-server"
+BUCKET_MODEL = "test-model-server"
+BUCKET_DATA_DRIFT = "mlops-data-drift"
 MODEL_FILE_NAME = "model.ckpt"
+CSV_FILE_NAME = "data_drift.csv"
+CSV_FILE_NAME_NEW = "new_data.csv"
 
 origins = ["*"]
 
@@ -43,10 +40,18 @@ app.add_middleware(
 )
 
 client = storage.Client("mlops-exam-project")
+
 # Download the model from GCS using the bucket and blob
-bucket = client.get_bucket(BUCKET_NAME)
+bucket = client.get_bucket(BUCKET_MODEL)
 blob = bucket.get_blob(MODEL_FILE_NAME)
 model_bytes = blob.download_as_bytes()
+
+# Download the data drift csv from GCS using the bucket and blob
+bucket_csv = client.get_bucket(BUCKET_DATA_DRIFT)
+blob_csv = bucket_csv.get_blob(CSV_FILE_NAME)
+csv_bytes = blob_csv.download_as_bytes()
+df_data_drift = pd.read_csv(io.BytesIO(csv_bytes), encoding="utf8")
+
 
 # Load the model using torch.load
 model = CustomModel.load_from_checkpoint(io.BytesIO(model_bytes))
@@ -68,38 +73,51 @@ async def predict(photo: UploadFile, background_tasks: BackgroundTasks):
     contents = await photo.read()
     image = Image.open(io.BytesIO(contents))
 
-    # spawn a background task to write to the bucket (for now our wip database)
-    background_tasks.add_task(extract_image_data, image=image)
-
     outputs = model.predict(image)
     _, predicted = torch.max(outputs, 1)
 
     # Map the prediction to a class label
     predicted_label = idx_to_class[predicted.item()]
 
+    # spawn a background task to write to the bucket (for now our wip database)
+    background_tasks.add_task(extract_image_data, image=image, predictionLabel=predicted_label)
+
     # Return the prediction
     return {"prediction": predicted_label}
 
 
 # log data for detecting image drift
-def extract_image_data(image: Image):
-    print("CALL BACKGROUND TASK")
+def extract_image_data(image: Image, predictionLabel: str):
     # extract image data with help of awesome OpenAI Model CLIP
     inputs = processor_clip(text=None, images=image, return_tensors="pt", padding=True)
     img_features = model_clip.get_image_features(inputs["pixel_values"])
-    print(img_features)
-    csv_file_path = "new_data.csv"
-    # Write the NumPy array to a CSV file
-    df = pd.DataFrame(img_features.detach().numpy())
-    df.to_csv(csv_file_path, header=False, index=False, mode="a")
+
+    bucket_csv = client.get_bucket(BUCKET_DATA_DRIFT)
+    blob_csv_new = bucket_csv.get_blob(CSV_FILE_NAME_NEW)
+    csv_bytes_new = blob_csv_new.download_as_bytes()
+    df_data_drift_new = pd.read_csv(io.BytesIO(csv_bytes_new), encoding="utf8")
+
+    column_names = ["label"] + [str(i) for i in range(1, 513)]
+    np_array = img_features.detach().numpy()
+    df = pd.DataFrame(np_array)
+    df.insert(0, "label", predictionLabel)
+    df.columns = column_names
+    _df_data_drift_new = pd.concat([df_data_drift_new, df], ignore_index=True)
+    _df_data_drift_new.to_csv("pls_kill_me.csv", header=True, index=False, mode="a")
+    _csv = _df_data_drift_new.to_csv(header=True, index=False, mode="a")
+    _blob = bucket_csv.blob(CSV_FILE_NAME_NEW)
+    _blob.upload_from_string(_csv)
 
 
-@app.get("/doDataset")
-async def generate_csv():
+# this is a helper function to generate the base csv file for the data drift test
+def __generate_csv():
     print("GENERATE CSV")
-    folder_path = "/home/hhauter/Documents/W23/MLOps/mlops_exam_project/data/test"
-    csv_file_path = "/home/hhauter/Documents/W23/MLOps/mlops_exam_project/src/data_drift.csv"
+    folder_path = "./data/train"
+    csv_file_path = "./data_drift.csv"
+    label_file_path = "./data/train.csv"
     image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    # read labels in to pd
+    df = pd.read_csv(label_file_path)
 
     # Open CSV file for writing
     with open(csv_file_path, "w", newline="") as csvfile:
@@ -109,7 +127,6 @@ async def generate_csv():
 
         # Iterate through each image file
         for image_file in image_files:
-            print(image_file)
             # Construct the full path to the image file
             image_path = os.path.join(folder_path, image_file)
 
@@ -119,16 +136,21 @@ async def generate_csv():
             inputs = processor_clip(text=None, images=image, return_tensors="pt", padding=True)
             img_features = model_clip.get_image_features(inputs["pixel_values"])
             img_features_np = img_features.detach().numpy()
+            label_for_image = df.loc[df["image_ID"].str.contains(image_file), "label"].values
+            label = label_for_image[0]
 
             # Write image details to CSV file
             flattened_data = [item for sublist in img_features_np for item in sublist]
-            csv_writer.writerow(flattened_data)
+            row_data = [f"{label}"] + flattened_data
 
+            # Write the concatenated data to CSV file
+            csv_writer.writerow(row_data)
             # Close the image
             image.close()
     return {"message": "CSV generated"}
 
 
+# DOES NOT MAKE SENSE FOR IMAGES AND UNSTRCTURED DATA
 @app.get("/runDataDriftTests", response_class=HTMLResponse)
 async def run_data_test():
     csv_file_path = "data_drift.csv"
@@ -140,15 +162,8 @@ async def run_data_test():
 
     data_integrity_dataset_tests = TestSuite(
         tests=[
-            TestValueRange(),
-            TestMeanInNSigmas(),
             TestNumberOfColumns(),
             TestNumberOfRows(),
-            TestColumnValueMin(),
-            TestColumnValueMax(),
-            TestColumnValueMean(),
-            TestColumnValueMedian(),
-            TestColumnValueStd(),
         ]
     )
     data_integrity_dataset_tests.run(reference_data=reference, current_data=new_data)
@@ -160,15 +175,14 @@ async def run_data_test():
 
 @app.get("/runDataDriftReport", response_class=HTMLResponse)
 async def get_report():
-    report = Report(metrics=[DataDriftPreset(), DataQualityPreset()])
-    csv_file_path = "data_drift.csv"
-    # Write the NumPy array to a CSV file
-    reference = pd.read_csv(csv_file_path)
+    bucket_csv = client.get_bucket(BUCKET_DATA_DRIFT)
+    blob_csv_new = bucket_csv.get_blob(CSV_FILE_NAME_NEW)
+    csv_bytes_new = blob_csv_new.download_as_bytes()
+    df_data_drift_new = pd.read_csv(io.BytesIO(csv_bytes_new), encoding="utf8")
 
-    csv_new_data = "new_data.csv"
-    new_data = pd.read_csv(csv_new_data)
+    report = Report(metrics=[DataDriftPreset(), DataQualityPreset(), TargetDriftPreset()])
 
-    report.run(reference_data=reference, current_data=new_data)
+    report.run(reference_data=df_data_drift, current_data=df_data_drift_new)
     report.save_html("report.html")
 
     with open("report.html", "r", encoding="utf-8") as f:
