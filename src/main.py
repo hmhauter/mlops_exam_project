@@ -13,8 +13,15 @@ class CustomSaveConfigCallback(SaveConfigCallback):
             config = self.parser.dump(self.config, skip_none=False)  # Required for proper reproducibility
             trainer.logger.log_hyperparams({"config": config})
 
+
 def cli_main():
-    LightningCLI(CustomModel, SportDataModule, save_config_callback=CustomSaveConfigCallback, save_config_kwargs={"save_to_log_dir": False})
+    LightningCLI(
+        CustomModel,
+        SportDataModule,
+        save_config_callback=CustomSaveConfigCallback,
+        save_config_kwargs={"save_to_log_dir": False},
+    )
+
 
 if __name__ == "__main__":
     logging.Logger("lightning", level=logging.INFO)
