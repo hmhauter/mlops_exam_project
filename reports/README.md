@@ -178,9 +178,7 @@ TODO: add description why only use raw data but not processed data; explain why 
 >
 > Answer:
 
---- We added styling guidelines and used ruff as a linter. We enforced its usage by adding a check if the code is correctly formatted to the pre-commits. Additionally, the project was set up such that a merge into the master branch was only possible when the formatting was correct according to ruff. To ensure good code quality every developer had to write code on his own branch and was only allowed to merge into the master branch when a code review was done and the pull request got approved. During the code review we looked for unused code, unexplained code or comments that just state what the code does (not why), etc.
-In general, it is important to have rules for code quality and format in large projects to ensure readability and maintainability of the code base. It is important to make sure that collaboration is possible since not every developer can know every part of the codebase in a large project and the onboarding of new developers is easy and standardised. Additionally, it helps to reduce standard programming bugs and makes it easier to scale the application since the framework helps handling the increasing complexity of the project.
-TODO: Is testing already part of this?       ---
+--- We implemented styling guidelines and incorporated Ruff as a linter in our project. Enforcing code formatting, we integrated a pre-commit check to ensure correct code styling. Moreover, we restricted merges into the master branch unless the code had ruff formatting standards through GitHub Actions. To uphold code quality, developers were required to work on individual branches and could only merge into master after a code review and approval of their pull request. Establishing rules for code quality and format in large projects is crucial for readability, maintainability, scalability and minimizing common coding errors. ---
 
 ## Version control
 
@@ -524,10 +522,10 @@ Whenever we want to commit changes, first pre-commit is run. When all hooks are 
 >
 > Answer:
 
---- Because of the tests for the continuous integration, we tried to cache our dataset so it would not get pulled with dvc everytime we merged branches. We did not successfully solve this issue, which increased the time needed for managing pull requests.
-
-
-One of the big struggles we also found during the development of the project was the difficulty of applying quantization. Because of the nature of our project, since we were using the timm library to create a pretrained ResNet18, it was difficult for us to apply these optimization methods. After trying to use dynamic quantization unsuccessfully, we tried to apply it manually but we did not succeed.---
+--- Because of the tests for the continuous integration, we tried to cache our dataset so it would not get pulled with dvc everytime we merged branches. We did not successfully solve this issue, which increased the time needed for managing pull requests. Additionally, we spent a lot of the free GitHub minutes on that problem.
+One of the big struggles we also found during the development of the project was the difficulty of applying quantization. Because of the nature of our project, since we were using the timm library to create a pretrained ResNet18, it was difficult for us to apply these optimization methods. After trying to use dynamic quantization unsuccessfully, we tried to apply it manually but we did not succeed.
+Another overall struggel was the high load of information and new tools we learned throughout the course. It was hard to keep track and not to lose the overview. Splitting tasks and doing knowledge sharing during the meetings where everyone explained what he was working on helped a lot to overcome that problem.
+---
 
 ### Question 27
 
