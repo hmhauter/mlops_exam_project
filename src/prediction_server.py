@@ -72,6 +72,7 @@ async def predict(photo: UploadFile, background_tasks: BackgroundTasks):
     # Read the image file
     contents = await photo.read()
     image = Image.open(io.BytesIO(contents))
+    image = image.convert("RGB")
 
     outputs = model.predict(image)
     _, predicted = torch.max(outputs, 1)
@@ -103,7 +104,7 @@ def extract_image_data(image: Image, predictionLabel: str):
     df.insert(0, "label", predictionLabel)
     df.columns = column_names
     _df_data_drift_new = pd.concat([df_data_drift_new, df], ignore_index=True)
-    _df_data_drift_new.to_csv("pls_kill_me.csv", header=True, index=False, mode="a")
+
     _csv = _df_data_drift_new.to_csv(header=True, index=False, mode="a")
     _blob = bucket_csv.blob(CSV_FILE_NAME_NEW)
     _blob.upload_from_string(_csv)
