@@ -522,7 +522,9 @@ Whenever we want to commit changes, first pre-commit is run. When all hooks are 
 >
 > Answer:
 
---- Because of the tests for the continuous integration, we tried to cache our dataset so it would not get pulled with dvc everytime we merged branches. We did not successfully solve this issue, which increased the time needed for managing pull requests. Additionally, we spent a lot of the free GitHub minutes on that problem.
+--- 
+The main struggle we had as a group was to learn on how to coordinate the development of the project since, as expected, the overall structure was blurry at the beggining, making us rethink on the fly how to proceed with the chosen project.
+Because of the tests for the continuous integration, we tried to cache our dataset so it would not get pulled with dvc everytime we merged branches. We did not successfully solve this issue, which increased the time needed for managing pull requests. Additionally, we spent a lot of the free GitHub minutes on that problem.
 One of the big struggles we also found during the development of the project was the difficulty of applying quantization. Because of the nature of our project, since we were using the timm library to create a pretrained ResNet18, it was difficult for us to apply these optimization methods. After trying to use dynamic quantization unsuccessfully, we tried to apply it manually but we did not succeed.
 Another overall struggel was the high load of information and new tools we learned throughout the course. It was hard to keep track and not to lose the overview. Splitting tasks and doing knowledge sharing during the meetings where everyone explained what he was working on helped a lot to overcome that problem.
 ---
