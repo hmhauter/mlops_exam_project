@@ -166,7 +166,7 @@ Additionally, we integrated the PyTorch Lightning CLI to minimize boilerplate co
 > Answer:
 
 --- We used the cookiecutter template that was already tailored to MLOps projects (https://github.com/SkafteNicki/cookiecutter-data-science). In general, the template helps to set up projects in a consistent structure while saving time. We removed the notebooks folder since we did not write any jupyter notebooks for this project. We have added a config folder to store the different config.yaml files. Furthermore, a .dvc folder was added because we are using dvc as a data versioning tool. Also, the structure of the {{ cookiecutter.project_name }} looks different. Since we decided to use PyTorch Lightning CLI we did not write a ´predict_model.py´ and ´train_model.py´ file. Instead we wrote a ´main.py´ file that can be invoked with config files and arguments to train or predict.
-TODO: add description why only use raw data but not processed data; explain why we do not have any docs
+In data folder we deleted raw and preprocessed folders becouse we processing the raw photos during loading each bach which in our case don't impact performence of the trainning, but help making the code cleaner. We left docs folder in case in the future we want to add additonal documentation to the project.
  ---
 
 ### Question 6
