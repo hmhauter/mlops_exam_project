@@ -1,6 +1,5 @@
 import pytest
 from pathlib import Path
-from PIL import Image
 import torch
 from torchvision import transforms
 from src.data.DataSet import SportDataset
