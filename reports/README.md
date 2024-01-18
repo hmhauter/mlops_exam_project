@@ -452,7 +452,11 @@ We use [TODO]
 >
 > Answer:
 
---- question 22 fill here ---
+--- question 22 fill here
+just post the following command in the terminal (path of our project): curl -X POST -F "photo=@reports/figures/soccer.jpg" https://server-hooaevw6ba-ew.a.run.app/predict
+and it will give:
+{"prediction":"Soccer"}
+---
 
 ### Question 23
 
@@ -522,7 +526,7 @@ Whenever we want to commit changes, first pre-commit is run. When all hooks are 
 >
 > Answer:
 
---- 
+---
 The main struggle we had as a group was to learn on how to coordinate the development of the project since, as expected, the overall structure was blurry at the beggining, making us rethink on the fly how to proceed with the chosen project.
 Because of the tests for the continuous integration, we tried to cache our dataset so it would not get pulled with dvc everytime we merged branches. We did not successfully solve this issue, which increased the time needed for managing pull requests. Additionally, we spent a lot of the free GitHub minutes on that problem.
 One of the big struggles we also found during the development of the project was the difficulty of applying quantization. Because of the nature of our project, since we were using the timm library to create a pretrained ResNet18, it was difficult for us to apply these optimization methods. After trying to use dynamic quantization unsuccessfully, we tried to apply it manually but we did not succeed.
