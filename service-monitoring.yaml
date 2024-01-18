@@ -6,7 +6,7 @@ metadata:
     run.googleapis.com/ingress-status: all
   labels:
     cloud.googleapis.com/location: europe-west1
-  name: my-service-with-monitoring
+  name: server
 spec:
   template:
     metadata:
