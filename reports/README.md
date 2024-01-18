@@ -265,7 +265,7 @@ Later, when we started working with google cloud, we changed the storage place t
 --- The continuous integration has been organized in two differentiated parts, the linting and the testing. The first of them, the linting makes sure that the code is written on an organized and standardized way. This is done mainly with the tool Ruff.
 The second of the parts is the testing part. In this part the github action runs all the tests that have been designed to check if the changes done to the code integrate well with the rest of the structure. It also generates a report, including the coverage of the tests into the different files. Apart from testing the code itself, it pulls the data from DVC, serving also to check that it works correctly.
 
-In the testing file, we run our tests on the latest version of ubuntu and on python 3.10. As this workflow is already really time consuming, we have decided to keep it as agile as possible when working together, not adding more OS or python versions, ensuring that we all are working in a similar conda environment. In order to run the file install all the dependencies on the requirements and authenticates on google cloud using a secret from our repository. After this process it is when the actual testing begins. Link to one of our workflows: https://github.com/hmhauter/mlops_exam_project/actions/runs/7570299939/job/20615373159 ---
+In the testing file, we run our tests on the latest version of ubuntu and on python 3.10. As this workflow is already really time consuming, we have decided to keep it as agile as possible when working together, not adding more OS or python versions, ensuring that we all are working in a similar conda environment. Therefore, we are using caching with ´cache: "pip"´. In order to run the file install all the dependencies on the requirements and authenticates on google cloud using a secret from our repository. After this process it is when the actual testing begins. Link to one of our workflows: https://github.com/hmhauter/mlops_exam_project/actions/runs/7570299939/job/20615373159 ---
 
 ## Running code and tracking experiments
 
@@ -351,7 +351,7 @@ Lastly on the third figure, it can be seen one specific run. The sweep saves eac
 
 --- Dockerfile has been crucial with our project, since it has been a fast way of creating fast a new environment with all the dependencies up to date. We have created mainly two dockerfiles, one for development and one for testing. These two dockerfiles had almost the same content since many of the dependencies were needed in both cases.
 In the other hand, we also made good use of the google cloud triggers, were each time the main branch of our github repository was updated, we would instantiate a new docker image with the new changes. This was a good way of having fast access to up to date images whenever it was needed.
-We used a cloudbuild.yaml file which the trigger would use to instantiate our docker file called train_model.dockerfile, which can be found in the ‘dockerfiles/’ folder. ---
+We used a cloudbuild.yaml file which the trigger would use to instantiate our docker file called train_model.dockerfile, which can be found in the ‘dockerfiles/’ folder. An example of how to build the server dockerfile locally is `docker build -f server.dockerfile . -t server:latest` and to run it `docker run -p 8080:80 server:latest uvicorn prediction_server:app --port 80 --host 0.0.0.0 --workers 1` ---
 
 ### Question 16
 
