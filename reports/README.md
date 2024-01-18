@@ -50,53 +50,54 @@ end of the project.
 
 ### Week 1
 
-* [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
-* [ ] Create a dedicated environment for you project to keep track of your packages
-* [ ] Create the initial file structure using cookiecutter
+* [x] Create a git repository
+* [x] Make sure that all team members have write access to the github repository
+* [x] Create a dedicated environment for you project to keep track of your packages
+* [x] Create the initial file structure using cookiecutter
 * [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [ ] Add a model file and a training script and get that running
-* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+* [x] Add a model file and a training script and get that running
+* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project
 * [ ] Do a bit of code typing and remember to document essential parts of your code
-* [ ] Setup version control for your data or part of your data
-* [ ] Construct one or multiple docker files for your code
-* [ ] Build the docker files locally and make sure they work as intended
-* [ ] Write one or multiple configurations files for your experiments
+* [x] Setup version control for your data or part of your data
+* [x] Construct one or multiple docker files for your code
+* [x] Build the docker files locally and make sure they work as intended
+* [x] Write one or multiple configurations files for your experiments
 * [ ] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
-* [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+* [x] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
-* [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
-* [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
+* [x] Write unit tests related to the data part of your code
+* [x] Write unit tests related to model construction and or model training
+* [x] Calculate the coverage.
+* [x] Get some continuous integration running on the github repository
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [x] Create a trigger workflow for automatically building your docker images
+* [x] Get your model training in GCP using either the Engine or Vertex AI
+* [x] Create a FastAPI application that can do inference using your model
 * [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [x] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting
-* [ ] Setup monitoring for the system telemetry of your deployed model
-* [ ] Setup monitoring for the performance of your deployed model
-* [ ] If applicable, play around with distributed data loading
+
+* [x] Check how robust your model is towards data drifting
+* [x] Setup monitoring for the system telemetry of your deployed model
+* [x] Setup monitoring for the performance of your deployed model
+* [x] If applicable, play around with distributed data loading
 * [ ] If applicable, play around with distributed model training
-* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
+* [x] Play around with quantization, compilation and pruning for you trained models to increase inference speed
 
 ### Additional
 
-* [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Make sure all group members have a understanding about all parts of the project
-* [ ] Uploaded all your code to github
+* [x] Revisit your initial project description. Did the project turn out as you wanted?
+* [x] Make sure all group members have a understanding about all parts of the project
+* [x] Uploaded all your code to github
 
 ## Group information
 
@@ -105,7 +106,7 @@ end of the project.
 >
 > Answer:
 
---- question 1 fill here ---
+--- Group 21 ---
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -116,7 +117,7 @@ end of the project.
 >
 > Answer:
 
---- question 2 fill here ---
+--- s220274, s222953, s232952, s223177 ---
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -129,7 +130,8 @@ end of the project.
 >
 > Answer:
 
---- question 3 fill here ---
+--- We used the third-party framework timm - PyTorch Image Models (https://huggingface.co/timm) from Hugging Face in our project, capitalizing on its functionality that offers a collection of pre-trained models for image classification. We utilized timm to easily create our model architecture by invoking the timm.create_model function, allowing us to experiment with various pre-trained models and adapt them. This not only saved us time but also enhanced the readability of the codebase. In handling optimization and logging, we decided to use the python machine learning library torch. We decided to use torch not only because of the large amount of built-in functionalities (such as dynamic quantization) but also because of the usage of cuda for performance improvements.
+Additionally, we integrated the PyTorch Lightning CLI to minimize boilerplate code, structure the codebase, and automate training and testing processes. ---
 
 ## Coding environment
 
@@ -148,7 +150,7 @@ end of the project.
 >
 > Answer:
 
---- question 4 fill here ---
+--- We used conda to set up our local environments. To create the environment the following command has to be executed `conda create -n mlops python=3.10`. Then the environment is activated with `conda activate mlops` and the requirements are installed from the provided requirements file with `pip install -r requirements.txt` or `pip install -r requirements_dev.txt` which also includes the required libraries needed for developing the project. All these steps are documented in the README file of the project. The list of dependencies was auto-generated using pipreqs. One important step in our workflow was that the requirement file had to be updated every time the codebase changed to ensure a working installation process at all times. Furthermore, we also added different requirement files to build the docker images to be able to create application specific environments. ---
 
 ### Question 5
 
@@ -163,7 +165,9 @@ end of the project.
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+--- We used the cookiecutter template that was already tailored to MLOps projects (https://github.com/SkafteNicki/cookiecutter-data-science). In general, the template helps to set up projects in a consistent structure while saving time. We removed the notebooks folder since we did not write any jupyter notebooks for this project. We have added a config folder to store the different config.yaml files. Furthermore, a .dvc folder was added because we are using dvc as a data versioning tool. Also, the structure of the {{ cookiecutter.project_name }} looks different. Since we decided to use PyTorch Lightning CLI we did not write a ´predict_model.py´ and ´train_model.py´ file. Instead we wrote a ´main.py´ file that can be invoked with config files and arguments to train or predict.
+TODO: add description why only use raw data but not processed data; explain why we do not have any docs
+ ---
 
 ### Question 6
 
@@ -174,7 +178,9 @@ end of the project.
 >
 > Answer:
 
---- question 6 fill here ---
+--- We added styling guidelines and used ruff as a linter. We enforced its usage by adding a check if the code is correctly formatted to the pre-commits. Additionally, the project was set up such that a merge into the master branch was only possible when the formatting was correct according to ruff. To ensure good code quality every developer had to write code on his own branch and was only allowed to merge into the master branch when a code review was done and the pull request got approved. During the code review we looked for unused code, unexplained code or comments that just state what the code does (not why), etc.
+In general, it is important to have rules for code quality and format in large projects to ensure readability and maintainability of the code base. It is important to make sure that collaboration is possible since not every developer can know every part of the codebase in a large project and the onboarding of new developers is easy and standardised. Additionally, it helps to reduce standard programming bugs and makes it easier to scale the application since the framework helps handling the increasing complexity of the project.
+TODO: Is testing already part of this?       ---
 
 ## Version control
 
@@ -193,7 +199,7 @@ end of the project.
 >
 > Answer:
 
---- question 7 fill here ---
+--- The total number of implemented tests is 14. These tests are directed to our model, our dataset and our data loader. They test things like forward pass, the training or the validation for the model, the size and the existence of labels on the dataset, and the correct loading of data from our data loader. The aim of the tests is to have certainty that every update of the code that concerns these 3 fields is compatible, allowing us to have a continuous integration workflow.  ---
 
 ### Question 8
 
@@ -208,7 +214,8 @@ end of the project.
 >
 > Answer:
 
---- question 8 fill here ---
+--- The total code coverage is 42.26%. It does not include all of our source code. We are not testing the FastAPI application and the main function that invokes the LightningCLI. We believe that for the LightningCLI it is hard to write a unit test, and testing of this file would only be manageable with integration testing. But we are far from 100% code coverage of our codebase because the whole application code is not tested. That is due to the fact that we would have needed to mock the Cloud functionality for the tests. Since pytest is a completely new framework for us we decided to concentrate on other parts of the project rather than getting the tests to work.
+But even if we had 100% code coverage, we would still not trust our code to be error free. That is because unittests only test individual units of the code but not the integration. Therefore, it is necessary to also add integration and user tests. Furthermore, if the developer who wrote the code is also writing the tests, it can easily happen that he misses edge cases or exactly tests what the code is doing and not what the function is supposed to do. Last but not least a test coverage of 100% does not necessarily mean that all functionalities in the code are tested. There are a lot of aspects like scalability, concurrency or third-library integration that might not be tested.  ---
 
 ### Question 9
 
@@ -223,7 +230,7 @@ end of the project.
 >
 > Answer:
 
---- question 9 fill here ---
+--- We made use of different features provided by git. First, we created a project for our GitHub repo with a minimalistic Kanban board. We added the weekly Todos as tickets to the board and tracked the progress in “Todo”, “Progress” and “Done”. During the project days we had meetings to discuss who wants to work on which ticket and we assigned this developer to the ticket. Then, the workflow was to first create a branch for this fix or feature. The branch was either based on the current version of the master branch or a different branch which features were needed for development. During development we committed and pushed the changes constantly to GitHub. When the code was implemented and the pipeline succeeded a Pull Request had to be opened and at least one reviewer needed to approve the changes. If the HEAD changed the developer had to rebase and then the code could be merged onto the master branch with a descriptive commit message. We agreed on using “Squash commit” to make rollbacks easier. When the branch was merged the feature branch automatically got deleted and the developer was able to drag the ticket to “Done” during the next meeting. To ensure this workflow the master branch was protected and the pipeline had to succeed as well as the PR needed to be approved before merging was possible.  ---
 
 ### Question 10
 
@@ -238,7 +245,10 @@ end of the project.
 >
 > Answer:
 
---- question 10 fill here ---
+--- We have used DVC as our version control software for data. In the beginning we stored the data at google drive, achieving a version control for our data and the opportunity to get the dataset out of our Github repo and pull it from DVC when needed.
+
+
+Later, when we started working with google cloud, we changed the storage place to a GC Bucket. This solution allowed us to not just pull the data locally when we needed to, but also to have easier access to it when training on the cloud. ---
 
 ### Question 11
 
@@ -254,7 +264,9 @@ end of the project.
 >
 > Answer:
 
---- question 11 fill here ---
+--- The continuous integration has been organized in two differentiated parts, the linting and the testing. The first of them, the linting makes sure that the code is written on an organized and standardized way. This is done mainly with the tool Ruff.
+The second of the parts is the training part. In this part the github action runs all the tests that have been designed to check if the changes done to the code integrate well with the rest of the structure. It also generates a report, in which is also included the coverage of the tests into the different files. It also pulls the data from DVC, serving also to check that it works correctly.
+In the testing file, we run our tests on the latest version of ubuntu and on python 3.10. Link to one of our workflows: https://github.com/hmhauter/mlops_exam_project/actions/runs/7570299939/job/20615373159 ---
 
 ## Running code and tracking experiments
 
@@ -273,7 +285,8 @@ end of the project.
 >
 > Answer:
 
---- question 12 fill here ---
+--- We have used a config file that contains the different parameters needed to load our data, build our model, run the training and other things like connect the model with Wandb. This is one with a config file called main.yaml (We also have a couple more for training on vertexAI and for doing our wandb sweep). With the use of a file we have gotten rid of the need of specify any hyperparameter on the command line when running the script. Instead the way to run our project is: python -u .\src\main.py -c .\config\main.yaml fit. For the rest of experiments, we just kept adding config files changing the parameters we were interested in.
+ ---
 
 ### Question 13
 
@@ -288,7 +301,8 @@ end of the project.
 >
 > Answer:
 
---- question 13 fill here ---
+--- We made use of config files, as it was explained in the last question. Also, we use Wandb to control the reproducibility. Whenever an experiment is run we store not only the metrics from the different experiments but also the model itself and the config file used on the experiment. In order to reproduce an experiment, it would be enough with running the model with the same config file as the experiment you want to reproduce has. Some parameters were chosen by us, and some other parameters were randomly chosen by wandb, mainly being the seed used for each experiment (crucial for a correct reproducibility) ---
+
 
 ### Question 14
 
@@ -305,7 +319,23 @@ end of the project.
 >
 > Answer:
 
---- question 14 fill here ---
+--- The images we have chosen to include are all from our hyperparameter sweep. This will allow us to go over more features and have a more complete explanation. In our case we have used Wandb to do this sweep. In the first image it can be seen an overview of the sweep. We have run 52 runs with different parameters, storing on each of them the important training values, as the accuracies, losses, or the f1 score, as also the different parameters of each run, as epochs, batch size or learning rate. Another of the values that wandb allow us to register are related to the system, like memory or cpu usage.
+[Figure 1](figures/q14_img1.png).
+
+
+In the second figure, it can be seen a graph that compares the loss (which was the value the sweep was aiming to minimize) between the different runs indicating also what were the parameters on each
+
+
+[Figure 2](figures/q14_img2.png).
+
+
+Lastly on the third figure, it can be seen one specific run. The sweep saves each of the runs as individual ones, saving not only the training values but also important files for the reproducibility of each run, like config files, requirements files or the logs of the run.
+
+
+[Figure 3](figures/q14_img3.png).
+
+
+ ---
 
 ### Question 15
 
@@ -320,7 +350,9 @@ end of the project.
 >
 > Answer:
 
---- question 15 fill here ---
+--- Dockerfile has been crucial with our project, since it has been a fast way of creating fast a new environment with all the dependencies up to date. We have created mainly two dockerfiles, one for development and one for testing. These two dockerfiles had almost the same content since many of the dependencies were needed in both cases.
+In the other hand, we also made good use of the google cloud triggers, were each time the main branch of our github repository was updated, we would instantiate a new docker image with the new changes. This was a good way of having fast access to up to date images whenever it was needed.
+We used a cloudbuild.yaml file which the trigger would use to instantiate our docker file called train_model.dockerfile, which can be found in the ‘dockerfiles/’ folder. ---
 
 ### Question 16
 
@@ -335,7 +367,10 @@ end of the project.
 >
 > Answer:
 
---- question 16 fill here ---
+--- For debugging all the group members have used the integrated debugger that can be found in visual studio code. With the nature of our workflow, when working individually or doing pair programming we used the different set of tools that the debugger offers, such as execution by steps or break points to identify, analyze and fix various types of bugs that appeared during the development of the project. Previous experience with similar debuggers such as the one from IDE turned out to be useful in our case too.
+
+
+When it comes to problem solving, we also made use of standup meetings in order to address known issues and got together in order to focus and address them.  ---
 
 ## Working in the cloud
 
@@ -352,7 +387,12 @@ end of the project.
 >
 > Answer:
 
---- question 17 fill here ---
+--- Buckets: For data storing, such as saving the project’s dataset
+Triggers: To automate the creation of an updated docker image
+Monitor: For monitoring the health of our application
+Vertex AI: It has been used for training our convolutional neural network
+Cloud run: For deploying the server with the model so it can be accessed online through a web front-end.
+---
 
 ### Question 18
 
@@ -367,7 +407,9 @@ end of the project.
 >
 > Answer:
 
---- question 18 fill here ---
+---
+We use [TODO]
+---
 
 ### Question 19
 
@@ -376,7 +418,8 @@ end of the project.
 >
 > Answer:
 
---- question 19 fill here ---
+--- ![Image registry](figures/bucket-1.png)
+![Image registry](figures/bucket-2.png) ---
 
 ### Question 20
 
@@ -385,7 +428,7 @@ end of the project.
 >
 > Answer:
 
---- question 20 fill here ---
+--- ![Image registry](figures/q20_img1.png) ---
 
 ### Question 21
 
@@ -394,7 +437,7 @@ end of the project.
 >
 > Answer:
 
---- question 21 fill here ---
+--- ![Container registry](figures/q21_img1.png) ---
 
 ### Question 22
 
@@ -425,7 +468,10 @@ end of the project.
 >
 > Answer:
 
---- question 23 fill here ---
+--- For the deployed model we managed to use monitoring by using the alarms system already incorporated in google cloud. For this, we created an alarm to monitor the counter of log entries.
+This alarm was configured so every time there was some log movement, it would send an email to an account notifying that the log movement surpassed the manually imputed threshold.
+During this, we also realised the importance of choosing a threshold wisely since we were receiving a great amount of alarms in our email inbox. In the following image we can see one of the emails sent by the alarm explained before:
+![Image registry](figures/alarm.png) ---
 
 ### Question 24
 
@@ -439,7 +485,7 @@ end of the project.
 >
 > Answer:
 
---- question 24 fill here ---
+--- In the end, since we all joined Sergio’s project, we mainly spent the money from the same google cloud account for the project development. We ended up spending a bit under 20$, which is lower than we all expected. On the other hand, Jeremi spent the whole 50$ trying to have runs using the computer engine GPU’s. Helena’s account was left with around 40$. ---
 
 ## Overall discussion of project
 
@@ -460,7 +506,7 @@ end of the project.
 >
 > Answer:
 
---- question 25 fill here ---
+--- ![Overall system architecture and workflow ](figures/mlops_system_diagram.jpg) ---
 
 ### Question 26
 
@@ -474,7 +520,10 @@ end of the project.
 >
 > Answer:
 
---- question 26 fill here ---
+--- Because of the tests for the continuous integration, we tried to cache our dataset so it would not get pulled with dvc everytime we merged branches. We did not successfully solve this issue, which increased the time needed for managing pull requests.
+
+
+One of the big struggles we also found during the development of the project was the difficulty of applying quantization. Because of the nature of our project, since we were using the timm library to create a pretrained ResNet18, it was difficult for us to apply these optimization methods. After trying to use dynamic quantization unsuccessfully, we tried to apply it manually but we did not succeed.---
 
 ### Question 27
 
@@ -491,4 +540,7 @@ end of the project.
 >
 > Answer:
 
---- question 27 fill here ---
+--- Student s222953 was in charge of the docker images, docker testing, configuring the trigger for docker instantiation. Also worked on the wandb sweep, quantization and setup the monitoring for the deployed model.
+Student s223177 has been in charge of the version control on google drive and google cloud later. Also has worked on the Cloud training with VertexAI, bucket management, wandb sweep and play around with advanced functions like quantization or compilation.
+Student s220274 was responsible for setting up the git repository, code coverage and GitHub Actions. Also did the deployment part of the fastAPI application to work with Docker and the Cloud plus evidently.
+Student s232952 was responsible for implementing and testing datamodule and support for pytorch lightining CLI, Also he was in charge of creating base of fastAPI aplication for model infrences and set up the telemetry mesurments of deployed model.---
