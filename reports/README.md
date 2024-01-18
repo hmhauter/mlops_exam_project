@@ -407,7 +407,7 @@ Cloud run: For deploying the server with the model so it can be accessed online 
 > Answer:
 
 ---
-We use [TODO]
+We mainly tried to speed up our training process. We attempted two different approaches. First, we ran the training on a Cloud Engine, similar to our local hardware setup, by preparing the code, installing dependencies, and running the code. We began with the default architecture with one NVIDIA Tesla K80 GPU, and then we had to increase the storage memory to 50 GB due to the size of the data and all dependencies. Subsequently, we encountered a problem with insufficient RAM. After increasing it, we noticed that data loading was slow because only one CPU core was available, so we also increased CPU performance. This increased the cost to around $45 per day. After these changes, we found the training speed to be less than what we achieved on our mid-end local PC, which was rather disappointing. Our second approach was to use a Docker image as the base for cloud computing. We successfully did that, but given that our local machines are better than what we could afford in the cloud, we decided not to invest too much into this solution.
 ---
 
 ### Question 19
