@@ -245,7 +245,7 @@ But even if we had 100% code coverage, we would still not trust our code to be e
 >
 > Answer:
 
---- We have used DVC as our version control software for data. In the beginning we stored the data at google drive, achieving a version control for our data and the opportunity to get the dataset out of our Github repo and pull it from DVC when needed.
+--- We have used DVC as our version control software for data. In the beginning we stored the data at google drive, achieving a version control for our data and the opportunity to get the dataset out of our Github repo and pull it from DVC when needed. It also gave the opportunity to expand or reduce the dataset due to the easy switch that the version control offers.
 
 
 Later, when we started working with google cloud, we changed the storage place to a GC Bucket. This solution allowed us to not just pull the data locally when we needed to, but also to have easier access to it when training on the cloud. ---
@@ -265,8 +265,9 @@ Later, when we started working with google cloud, we changed the storage place t
 > Answer:
 
 --- The continuous integration has been organized in two differentiated parts, the linting and the testing. The first of them, the linting makes sure that the code is written on an organized and standardized way. This is done mainly with the tool Ruff.
-The second of the parts is the training part. In this part the github action runs all the tests that have been designed to check if the changes done to the code integrate well with the rest of the structure. It also generates a report, in which is also included the coverage of the tests into the different files. It also pulls the data from DVC, serving also to check that it works correctly.
-In the testing file, we run our tests on the latest version of ubuntu and on python 3.10. Link to one of our workflows: https://github.com/hmhauter/mlops_exam_project/actions/runs/7570299939/job/20615373159 ---
+The second of the parts is the testing part. In this part the github action runs all the tests that have been designed to check if the changes done to the code integrate well with the rest of the structure. It also generates a report, including the coverage of the tests into the different files. Apart from testing the code itself, it pulls the data from DVC, serving also to check that it works correctly.
+
+In the testing file, we run our tests on the latest version of ubuntu and on python 3.10. As this workflow is already really time consuming, we have decided to keep it as agile as possible when working together, not adding more OS or python versions, ensuring that we all are working in a similar conda environment. In order to run the file install all the dependencies on the requirements and authenticates on google cloud using a secret from our repository. After this process it is when the actual testing begins. Link to one of our workflows: https://github.com/hmhauter/mlops_exam_project/actions/runs/7570299939/job/20615373159 ---
 
 ## Running code and tracking experiments
 
@@ -285,7 +286,7 @@ In the testing file, we run our tests on the latest version of ubuntu and on pyt
 >
 > Answer:
 
---- We have used a config file that contains the different parameters needed to load our data, build our model, run the training and other things like connect the model with Wandb. This is one with a config file called main.yaml (We also have a couple more for training on vertexAI and for doing our wandb sweep). With the use of a file we have gotten rid of the need of specify any hyperparameter on the command line when running the script. Instead the way to run our project is: python -u .\src\main.py -c .\config\main.yaml fit. For the rest of experiments, we just kept adding config files changing the parameters we were interested in.
+--- We have used a config file that contains the different parameters needed to load our data, build our model, run the training and other things like connect the model with Wandb. This is one with a config file called main.yaml. With the use of a file we have gotten rid of the need of specify any hyperparameter on the command line when running the script. Instead the way to run our project is: python -u .\src\main.py -c .\config\main.yaml fit. For the rest of experiments, we just kept adding config files changing the parameters we were interested in.
  ---
 
 ### Question 13
@@ -320,19 +321,19 @@ In the testing file, we run our tests on the latest version of ubuntu and on pyt
 > Answer:
 
 --- The images we have chosen to include are all from our hyperparameter sweep. This will allow us to go over more features and have a more complete explanation. In our case we have used Wandb to do this sweep. In the first image it can be seen an overview of the sweep. We have run 52 runs with different parameters, storing on each of them the important training values, as the accuracies, losses, or the f1 score, as also the different parameters of each run, as epochs, batch size or learning rate. Another of the values that wandb allow us to register are related to the system, like memory or cpu usage.
-[Figure 1](figures/q14_img1.png).
+![Figure 1](figures/q14_img1.png).
 
 
 In the second figure, it can be seen a graph that compares the loss (which was the value the sweep was aiming to minimize) between the different runs indicating also what were the parameters on each
 
 
-[Figure 2](figures/q14_img2.png).
+![Figure 2](figures/q14_img2.png).
 
 
 Lastly on the third figure, it can be seen one specific run. The sweep saves each of the runs as individual ones, saving not only the training values but also important files for the reproducibility of each run, like config files, requirements files or the logs of the run.
 
 
-[Figure 3](figures/q14_img3.png).
+![Figure 3](figures/q14_img3.png).
 
 
  ---
