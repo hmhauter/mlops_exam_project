@@ -7,6 +7,7 @@ import csv
 from google.cloud import storage
 from src.models.model import CustomModel
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
 from transformers import CLIPProcessor, CLIPModel
 from evidently.report import Report
 from evidently.test_suite import TestSuite
@@ -189,3 +190,6 @@ async def get_report():
     with open("report.html", "r", encoding="utf-8") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content, status_code=200)
+
+
+Instrumentator().instrument(app).expose(app)

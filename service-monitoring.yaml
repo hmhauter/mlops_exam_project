@@ -1,0 +1,40 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+  labels:
+    cloud.googleapis.com/location: europe-west1
+  name: server
+spec:
+  template:
+    metadata:
+      annotations:
+        run.googleapis.com/execution-environment: gen2
+        run.googleapis.com/container-dependencies: '{"collector":["app"]}'  # specify that collector depends on app
+    spec:
+      containerConcurrency: 80
+      containers:
+      - image: gcr.io/mlops-exam-project/server:latest
+        name: app
+        ports:
+        - containerPort: 8080
+          name: http1
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 4Gi
+        startupProbe:
+          failureThreshold: 1
+          periodSeconds: 240
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 240
+      - image: "us-docker.pkg.dev/cloud-ops-agents-artifacts/cloud-run-gmp-sidecar/cloud-run-gmp-sidecar:1.0.0"
+        name: collector
+      timeoutSeconds: 300
+
+  traffic:
+  - latestRevision: true
+    percent: 100

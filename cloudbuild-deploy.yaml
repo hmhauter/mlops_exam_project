@@ -19,12 +19,10 @@ steps:
     entrypoint: gcloud
     args:
       - "run"
-      - "deploy"
-      - "server"
-      - "--image"
-      - "gcr.io/mlops-exam-project/server:latest"
+      - "services"
+      - "replace"
+      - 'service-monitoring.yaml'
       - "--region"
       - "europe-west1"
       - "--platform"
       - "managed"
-      - "--allow-unauthenticated" # allow unauthenticated access to the endpoint
