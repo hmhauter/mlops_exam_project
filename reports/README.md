@@ -452,7 +452,11 @@ We use [TODO]
 >
 > Answer:
 
---- question 22 fill here ---
+---
+We managed to deploy our model for inference by wrapping it in a FastAPI application. First, we tried it locally by running a Docker container, and then we deployed it to Google Cloud Run. Initially, we did this manually using the CLI, and later, we set up automatic deployment using Cloud Build. Inference can be invoked using a command.
+
+but we recommend using our [page](https://storage.googleapis.com/mlops-sport-predictor/index.html) ---
+When deploying on Google Cloud, we encountered very confusing errors about missing modules, even though the Docker image successfully installed all dependencies. We debugged it for a couple of hours, but finally, the solution was to simply increase the memory limit of the Cloud Run container.
 
 ### Question 23
 
