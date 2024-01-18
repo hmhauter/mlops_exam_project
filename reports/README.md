@@ -507,7 +507,10 @@ During this, we also realised the importance of choosing a threshold wisely sinc
 >
 > Answer:
 
---- ![Overall system architecture and workflow ](figures/mlops_system_diagram.jpg) ---
+--- ![Overall system architecture and workflow ](figures/mlops_system_diagram.jpg)
+The starting point of the diagram is our local setup where every developer had to set up his conda environment. This is done with the requirement files provided in the code. Additionally, we integrated docker files into our code such that the code can be built at anytime independent of the local setup. In the local setup also the linter has to be run to format the code.
+The model setup was done with PyTorchLightning. Additionally, WanDB is used to log experiments and DVC does the version control for our data.
+Whenever we want to commit changes, first pre-commit is run. When all hooks are passed we can commit and push to GitHub. Then the continuous integration pipeline runs executing the GitHub actions pytest and linter. Additionally, we can create a pull request to merge the branch into the master. For the pull request, a code coverage report for the tests is created. When the branch is merged into the master a trigger is activated executing configuration files that orchestrate the deployment of the model. On Cloud Build the docker image for the server and monitoring as well as the docker image for training the model is built. Next, these images are pushed to the container registry. As a final step, the container image for the server and monitoring is deployed to Cloud Run. Next, a developer can submit a job to start the training with Vertex AI using the latest docker image for training that was pushed to the container registry. After training, the model is stored in the model bucket in the Cloud Storage. Logs as well as the model are pushed to WanDB for versioning. Cloud Run is monitored by Cloud monitoring and an alert system was added. The application using fastAPI is fetching and pushing data to Cloud Storage. The user interacts with the API through a User Interface allowing him to upload images. Whenever the API calls predict image features are written to a bucket in Cloud Storage to have the possibility to monitor data drift with evidently. ---
 
 ### Question 26
 
