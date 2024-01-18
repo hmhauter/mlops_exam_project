@@ -24,4 +24,3 @@ WORKDIR /mlops_exam_project/
 
 
 ENTRYPOINT ["python", "-u", "src/main.py","-c","config/main.yaml","-c","config/vertex.yaml","fit"]
-
